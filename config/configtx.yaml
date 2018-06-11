@@ -1,0 +1,52 @@
+# Copyright IBM Corp. All Rights Reserved.
+#
+# SPDX-License-Identifier: Apache-2.0
+#
+
+---
+Profiles:
+    ComposerOrdererGenesis:
+        Orderer:
+            <<: *OrdererDefaults
+            Organizations:
+                - *OrdererOrg
+        Consortiums:
+            ComposerConsortium:
+                Organizations:
+                    - *POCOrg
+    ComposerChannel:
+        Consortium: ComposerConsortium
+        Application:
+            <<: *ApplicationDefaults
+            Organizations:
+                - *POCOrg
+
+Organizations:
+    - &OrdererOrg
+        Name: OrdererOrg
+        ID: OrdererMSP
+        MSPDir: crypto-config/ordererOrganizations/black.insure/msp
+        AdminPrincipal: Role.MEMBER
+    - &POCOrg
+        Name: POCOrg
+        ID: POCMSP
+        MSPDir: crypto-config/peerOrganizations/poc.black.insure/msp
+        AdminPrincipal: Role.MEMBER
+        AnchorPeers:
+            - Host: peer0.poc.black.insure
+              Port: 7051
+Orderer: &OrdererDefaults
+    OrdererType: solo
+    Addresses:
+        - orderer.black.insure:7050
+    BatchTimeout: 1s
+    BatchSize:
+        MaxMessageCount: 10
+        AbsoluteMaxBytes: 98 MB
+        PreferredMaxBytes: 512 KB
+    Kafka:
+        Brokers:
+            - 127.0.0.1:9092
+    Organizations:
+Application: &ApplicationDefaults
+    Organizations:

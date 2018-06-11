@@ -1,0 +1,17 @@
+# Copyright IBM Corp. All Rights Reserved.
+#
+# SPDX-License-Identifier: Apache-2.0
+#
+
+OrdererOrgs:
+  - Name: OrdererOrg
+    Domain: black.insure
+    Specs:
+      - Hostname: orderer
+PeerOrgs:
+  - Name: POCOrg
+    Domain: poc.black.insure
+    Template:
+      Count: 3
+    Users:
+      Count: 0
