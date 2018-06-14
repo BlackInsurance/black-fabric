@@ -13,6 +13,10 @@ rm -f ./config/composer-channel.tx
 rm -f ./config/composer-genensis.block
 rm -rf ./config/kubernetes
 
+# Make sure Docker is installed
+
+# Make sure Docker-Compose is installed
+
 # Download the Hyperledger Fabric network build tools
 curl -sSL https://goo.gl/kFFqh5 | bash -s 1.0.4
 

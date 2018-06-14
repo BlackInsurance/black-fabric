@@ -1,7 +1,7 @@
 version: '2'
 
 networks:
-  config_default:
+  default:
 
 services:
   ca.poc.black.insure:
@@ -10,15 +10,15 @@ services:
       - FABRIC_CA_HOME=/etc/hyperledger/fabric-ca-server
       - FABRIC_CA_SERVER_CA_NAME=ca.poc.black.insure
 #      - FABRIC_CA_SERVER_CA_CERTFILE=/etc/hyperledger/fabric-ca-server-config/poc.black.insure-cert.pem
-#      - FABRIC_CA_SERVER_CA_KEYFILE=/etc/hyperledger/fabric-ca-server-config/signingKEY49d1f059973b34812adca6a23f11efbacfdb25411640f4f5b160f453033e73b7_sk
+#      - FABRIC_CA_SERVER_CA_KEYFILE=/etc/hyperledger/fabric-ca-server-config/signingKEY31b757c04dafd7bbc97672747153fcfbae4f05d74830ecd5b2c387f8b762c12a_sk
     ports:
       - "7054:7054"
-    command: sh -c 'fabric-ca-server start --ca.certfile /etc/hyperledger/fabric-ca-server-config/ca.poc.black.insure-cert.pem --ca.keyfile /etc/hyperledger/fabric-ca-server-config/49d1f059973b34812adca6a23f11efbacfdb25411640f4f5b160f453033e73b7_sk -b admin:adminpw -d'
+    command: sh -c 'fabric-ca-server start --ca.certfile /etc/hyperledger/fabric-ca-server-config/ca.poc.black.insure-cert.pem --ca.keyfile /etc/hyperledger/fabric-ca-server-config/31b757c04dafd7bbc97672747153fcfbae4f05d74830ecd5b2c387f8b762c12a_sk -b admin:adminpw -d'
     volumes:
       - ./crypto-config/peerOrganizations/poc.black.insure/ca/:/etc/hyperledger/fabric-ca-server-config
     container_name: ca.poc.black.insure
     networks:
-      - config_default
+      - default
 
   orderer.black.insure:
     container_name: orderer.black.insure
@@ -33,7 +33,7 @@ services:
     working_dir: /opt/gopath/src/github.com/hyperledger/fabric
     command: orderer
     networks:
-      - config_default
+      - default
     ports:
       - 7050:7050
     volumes:
@@ -62,7 +62,7 @@ services:
     working_dir: /opt/gopath/src/github.com/hyperledger/fabric
     command: peer node start --peer-defaultchain=false
     networks:
-      - config_default
+      - default
     ports:
       - 7051:7051
       - 7053:7053
@@ -98,7 +98,7 @@ services:
     working_dir: /opt/gopath/src/github.com/hyperledger/fabric
     command: peer node start --peer-defaultchain=false
     networks:
-      - config_default
+      - default
     ports:
       - 8051:7051
       - 8053:7053
@@ -134,7 +134,7 @@ services:
     working_dir: /opt/gopath/src/github.com/hyperledger/fabric
     command: peer node start --peer-defaultchain=false
     networks:
-      - config_default
+      - default
     ports:
       - 9051:7051
       - 9053:7053
@@ -152,7 +152,7 @@ services:
     container_name: couchdb-peer0.poc.black.insure
     image: hyperledger/fabric-couchdb:$ARCH-1.0.4
     networks:
-      - config_default
+      - default
     ports:
       - 7055:5984
     environment:
@@ -162,7 +162,7 @@ services:
     container_name: couchdb-peer1.poc.black.insure
     image: hyperledger/fabric-couchdb:$ARCH-1.0.4
     networks:
-      - config_default
+      - default
     ports:
       - 8055:5984
     environment:
@@ -172,7 +172,7 @@ services:
     container_name: couchdb-peer2.poc.black.insure
     image: hyperledger/fabric-couchdb:$ARCH-1.0.4
     networks:
-      - config_default
+      - default
     ports:
       - 9055:5984
     environment:
