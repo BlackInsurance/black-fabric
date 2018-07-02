@@ -24,7 +24,7 @@ services:
     container_name: orderer.black.insure
     image: hyperledger/fabric-orderer:$ARCH-1.0.4
     environment:
-      - ORDERER_GENERAL_LOGLEVEL=debug
+      - ORDERER_GENERAL_LOGLEVEL=error
       - ORDERER_GENERAL_LISTENADDRESS=0.0.0.0
       - ORDERER_GENERAL_GENESISMETHOD=file
       - ORDERER_GENERAL_GENESISFILE=/etc/hyperledger/configtx/composer-genesis.block
@@ -44,8 +44,8 @@ services:
     container_name: peer0.poc.black.insure
     image: hyperledger/fabric-peer:$ARCH-1.0.4
     environment:
-      - CORE_LOGGING_PEER=debug
-      - CORE_CHAINCODE_LOGGING_LEVEL=DEBUG
+      - CORE_LOGGING_PEER=error
+      - CORE_CHAINCODE_LOGGING_LEVEL=ERROR
       - CORE_VM_ENDPOINT=unix:///host/var/run/docker.sock
       - CORE_PEER_ID=peer0.poc.black.insure
       - CORE_PEER_ADDRESS=peer0.poc.black.insure:7051
@@ -68,6 +68,7 @@ services:
       - 7053:7053
     volumes:
         - /var/run/:/host/var/run/
+        - /var/hyperledger/peer0:/var/hyperledger/production
         - ./:/etc/hyperledger/configtx
         - ./crypto-config/peerOrganizations/poc.black.insure/peers/peer0.poc.black.insure/msp:/etc/hyperledger/peer/msp
         - ./crypto-config/peerOrganizations/poc.black.insure/users:/etc/hyperledger/msp/users
@@ -80,8 +81,8 @@ services:
     container_name: peer1.poc.black.insure
     image: hyperledger/fabric-peer:$ARCH-1.0.4
     environment:
-      - CORE_LOGGING_PEER=debug
-      - CORE_CHAINCODE_LOGGING_LEVEL=DEBUG
+      - CORE_LOGGING_PEER=error
+      - CORE_CHAINCODE_LOGGING_LEVEL=ERROR
       - CORE_VM_ENDPOINT=unix:///host/var/run/docker.sock
       - CORE_PEER_ID=peer1.poc.black.insure
       - CORE_PEER_ADDRESS=peer1.poc.black.insure:7051
@@ -104,6 +105,7 @@ services:
       - 8053:7053
     volumes:
         - /var/run/:/host/var/run/
+        - /var/hyperledger/peer1:/var/hyperledger/production
         - ./:/etc/hyperledger/configtx
         - ./crypto-config/peerOrganizations/poc.black.insure/peers/peer1.poc.black.insure/msp:/etc/hyperledger/peer/msp
         - ./crypto-config/peerOrganizations/poc.black.insure/users:/etc/hyperledger/msp/users
@@ -116,8 +118,8 @@ services:
     container_name: peer2.poc.black.insure
     image: hyperledger/fabric-peer:$ARCH-1.0.4
     environment:
-      - CORE_LOGGING_PEER=debug
-      - CORE_CHAINCODE_LOGGING_LEVEL=DEBUG
+      - CORE_LOGGING_PEER=error
+      - CORE_CHAINCODE_LOGGING_LEVEL=ERROR
       - CORE_VM_ENDPOINT=unix:///host/var/run/docker.sock
       - CORE_PEER_ID=peer2.poc.black.insure
       - CORE_PEER_ADDRESS=peer2.poc.black.insure:7051
@@ -140,6 +142,7 @@ services:
       - 9053:7053
     volumes:
         - /var/run/:/host/var/run/
+        - /var/hyperledger/peer2:/var/hyperledger/production
         - ./:/etc/hyperledger/configtx
         - ./crypto-config/peerOrganizations/poc.black.insure/peers/peer2.poc.black.insure/msp:/etc/hyperledger/peer/msp
         - ./crypto-config/peerOrganizations/poc.black.insure/users:/etc/hyperledger/msp/users
@@ -157,6 +160,8 @@ services:
       - 7055:5984
     environment:
       DB_URL: http://localhost:5984/member_db
+    volumes:
+        - /var/hyperledger/couchdb0:/opt/couchdb/data
 
   couchdb-peer1.poc.black.insure:
     container_name: couchdb-peer1.poc.black.insure
@@ -167,6 +172,8 @@ services:
       - 8055:5984
     environment:
       DB_URL: http://localhost:5984/member_db
+    volumes:
+        - /var/hyperledger/couchdb1:/opt/couchdb/data
 
   couchdb-peer2.poc.black.insure:
     container_name: couchdb-peer2.poc.black.insure
@@ -177,5 +184,7 @@ services:
       - 9055:5984
     environment:
       DB_URL: http://localhost:5984/member_db
+    volumes:
+        - /var/hyperledger/couchdb2:/opt/couchdb/data
 
 
