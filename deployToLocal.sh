@@ -21,8 +21,8 @@ rm -rf ./config/kubernetes
 curl -sSL https://goo.gl/kFFqh5 | bash -s 1.0.4
 
 # Download the Kompose conversion tool for creating Kubernetes files from Docker-Compose
-curl -L https://github.com/kubernetes/kompose/releases/download/v1.13.0/kompose-linux-amd64 -o ./bin/kompose
-chmod +x ./bin/kompose
+#curl -L https://github.com/kubernetes/kompose/releases/download/v1.13.0/kompose-linux-amd64 -o ./bin/kompose
+#chmod +x ./bin/kompose
 
 # Create the crypto material and genesis block for the Fabric network
 cd config
